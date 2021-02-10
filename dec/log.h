@@ -4,6 +4,7 @@
 #include <cstring>
 #include <stdint.h>
 #include <memory>
+#include <list>
 
 namespace dec {
 
@@ -14,12 +15,12 @@ namespace dec {
         LogEvent();
 
     private:
-        const char* m_file = nullptr; // 文件名
-        int32_t m_line = 0; // 行号
-        uint32_t m_elapse = 0; // 程序启动开始到现在的时间， 单位毫秒
-        uint32_t m_threadId = 0; // 线程id
-        uint32_t m_fiberId = 0; // 协程id
-        uint64_t m_time = 0; // 时间戳
+        const char* m_file = nullptr;   // 文件名
+        int32_t m_line = 0;             // 行号
+        uint32_t m_elapse = 0;          // 程序启动开始到现在的时间， 单位毫秒
+        uint32_t m_threadId = 0;        // 线程id
+        uint32_t m_fiberId = 0;         // 协程id
+        uint64_t m_time = 0;            // 时间戳
         std::string m_content;
     };
 
@@ -65,10 +66,21 @@ namespace dec {
 
         void log(LogLevel::Level level, LogEvent::ptr event);
 
+        void debug(LogEvent::ptr event);
+        void info(LogEvent::ptr event);
+        void warn(LogEvent::ptr event);
+        void error(LogEvent::ptr event);
+        void fatal(LogEvent::ptr event);
+
+        void addAppender(LogAppender::ptr appender);
+        void delAppender(LogAppender::ptr appender);
+
+        LogLevel::Level getLevel() const {return m_level;}
+
     private:
-        std::string m_name;
-        LogLevel::Level m_level;
-        LogAppender::ptr;
+        std::string m_name;                      // 日志名称
+        LogLevel::Level m_level;                 // 日志级别
+        std::list<LogAppender::ptr> m_appenders; // appender集合
     };
 
     // 输出到控制台的Appender
