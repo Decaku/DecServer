@@ -1,6 +1,7 @@
 #include "log.h"
 
 namespace dec {
+    // 实现
     Logger::Logger(const std::string& name = "root") {
         //m_name
     };
