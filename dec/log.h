@@ -76,6 +76,7 @@ namespace dec {
         void delAppender(LogAppender::ptr appender);
 
         LogLevel::Level getLevel() const {return m_level;}
+        void setLevel(LogLevel::Level level) {m_level = level;}
 
     private:
         std::string m_name;                      // 日志名称
