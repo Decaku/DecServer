@@ -22,7 +22,9 @@ namespace dec {
 
     void Logger::log(LogLevel::Level level, LogEvent::ptr event) {
         if(level >= m_level) {
-            // ...
+            for(auto& i : m_appenders) {
+                i->log(level, event);
+            }
         }
     }
 
