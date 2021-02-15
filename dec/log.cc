@@ -48,3 +48,4 @@ namespace dec {
         debug(LogLevel::FATAL, event);
     }
 }
+//
